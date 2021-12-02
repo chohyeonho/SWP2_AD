@@ -59,7 +59,7 @@ class PersonalityGame(QWidget):
 
         self.setLayout(mainLayout)
 
-        self.setWindowTitle("성격 테스트")
+        self.setWindowTitle("성격 테스트 게임")
 
         self.startGame()
 
