@@ -118,9 +118,15 @@ class PersonalityGame(QWidget):
                 self.scoreDict[i[0]]=i[1]
         print(sorted(self.scoreDict.items(),key=lambda x:x[1],reverse=True))
         self.remainingQuestions-=1
+        if self.remainingQuestions==0:
+            self.gameOver=True
+            self.finish()
+            return
         n = 10 - self.remainingQuestions
         n = self.numList[n]
         self.display(n)
+    def finish(self):
+        pass
 if __name__ == '__main__':
 
     import sys
