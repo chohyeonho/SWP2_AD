@@ -68,6 +68,7 @@ class PersonalityGame(QWidget):
         #self.questionWindow.setText(self.word.randFromDB())
         self.gameOver=False
         self.numList=[]
+        self.scoreDict=dict()
         for i in range(8):
             r = random.randrange(52)
             self.numList.append(r)
@@ -103,8 +104,10 @@ class PersonalityGame(QWidget):
         if int(selectChar)>self.lenAnswer or int(selectChar)==0:
             self.message.setText("1~"+str(self.lenAnswer)+" 사이의 숫자를 입력해주세요.")
             return
-
-
+        self.answerSelect(int(selectChar))
+    def answerSelect(self,m):
+        n=8-self.remainingQuestions
+        n=self.numList[n]
 if __name__ == '__main__':
 
     import sys
