@@ -43,7 +43,7 @@ class PersonalityGame(QWidget):
         answerLayout.addWidget(self.numInput,2,0)
 
         self.selectButton=QToolButton()
-        self.selectButton.setText("선택")
+        self.selectButton.setText("Select")
         self.selectButton.clicked.connect(self.selectClicked)
         answerLayout.addWidget(self.selectButton,2,1)
 
@@ -53,7 +53,7 @@ class PersonalityGame(QWidget):
         answerLayout.addWidget(self.newGameButton, 3, 0)
 
         mainLayout=QGridLayout()
-        #mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
         mainLayout.addLayout(questionLayout,0,0)
         mainLayout.addLayout(answerLayout,0,1)
 
@@ -65,7 +65,6 @@ class PersonalityGame(QWidget):
 
     def startGame(self):
         #self.question=Question()
-        #self.questionWindow.setText(self.word.randFromDB())
         self.gameOver=False
         self.numList=[]
         self.scoreDict=dict()
@@ -76,6 +75,7 @@ class PersonalityGame(QWidget):
             self.numList.append(r)
         self.remainingQuestions=10
         self.display(self.numList[0])
+        self.message.clear()
 
     def display(self,n):
         self.questionWindow.setText(self.questions.words[n])
@@ -126,7 +126,14 @@ class PersonalityGame(QWidget):
         n = self.numList[n]
         self.display(n)
     def finish(self):
-        pass
+        finishText="당신은 아마도 "
+        sortedScoreDict=sorted(self.scoreDict.items(),key=lambda x:x[1],reverse=True)
+        finishText+=sortedScoreDict[0][0]
+        finishText+=" 성격이군요!"
+        self.questionWindow.setText(finishText)
+        newGameText="새 게임을 시작하려면 New Game 버튼을 눌러주세요"
+        self.whichAnswer.setText(newGameText)
+
 if __name__ == '__main__':
 
     import sys
