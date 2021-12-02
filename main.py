@@ -69,10 +69,12 @@ class PersonalityGame(QWidget):
         self.gameOver=False
         self.numList=[]
         self.scoreDict=dict()
-        for i in range(8):
+        for i in range(10):
             r = random.randrange(52)
+            while r in self.numList:
+                r = random.randrange(52)
             self.numList.append(r)
-        self.remainingQuestions=8
+        self.remainingQuestions=10
         self.display(self.numList[0])
 
     def display(self,n):
@@ -106,8 +108,19 @@ class PersonalityGame(QWidget):
             return
         self.answerSelect(int(selectChar))
     def answerSelect(self,m):
-        n=8-self.remainingQuestions
+        n=10-self.remainingQuestions
         n=self.numList[n]
+        m=m-1
+        for i in self.scores.words[n][m]:
+            if i[0] in self.scoreDict:
+                self.scoreDict[i[0]]+=i[1]
+            else:
+                self.scoreDict[i[0]]=i[1]
+        print(sorted(self.scoreDict.items(),key=lambda x:x[1],reverse=True))
+        self.remainingQuestions-=1
+        n = 10 - self.remainingQuestions
+        n = self.numList[n]
+        self.display(n)
 if __name__ == '__main__':
 
     import sys
